@@ -19,7 +19,7 @@ namespace StraxTemplate.Models
         public string Title { get; set; }
         [MaxLength(500)]
         public string Text { get; set; }
-        [MaxLength(50)]
+        
         public DateTime CreatedTime { get; set; }
 
         [ForeignKey("User")]

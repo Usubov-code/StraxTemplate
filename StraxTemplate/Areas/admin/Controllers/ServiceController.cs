@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StraxTemplate.Data;
 using StraxTemplate.Models;
 using System;
@@ -9,51 +10,57 @@ using System.Threading.Tasks;
 namespace StraxTemplate.Areas.admin.Controllers
 {
     [Area("admin")]
-    public class CategoryController : Controller
+    public class ServiceController : Controller
     {
         private readonly AppDbContext _context;
-        public CategoryController(AppDbContext context)
+
+        public ServiceController(AppDbContext context)
         {
             _context = context;
         }
         public IActionResult Index()
         {
-            return View(_context.Categories.ToList());
+
+            return View(_context.Services.Include(e=>e.User).Include(a=>a.Category).Include(d=>d.DesingType).ToList());
         }
+
         [HttpGet]
         public IActionResult Create()
         {
 
+
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Category model)
+        public IActionResult Create(Service model)
         {
-          if(ModelState.IsValid)
+           if(ModelState.IsValid)
             {
-                _context.Categories.Add(model);
+                _context.Services.Add(model);
                 _context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-          else
+           else
             {
                 return View(model);
             }
         }
-        [HttpGet]
-        public IActionResult Update(int Id)
+       [HttpGet]
+       public IActionResult Update(int Id)
         {
-           
-            return View(_context.Categories.Find(Id));
-        }
-        [HttpPost]
 
-        public IActionResult Update (Category model)
+
+            return View(_context.Services.Find(Id));
+        }
+
+
+        [HttpPost]
+        public IActionResult Update(Service model)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                _context.Categories.Update(model);
+                _context.Services.Update(model);
                 _context.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -62,29 +69,25 @@ namespace StraxTemplate.Areas.admin.Controllers
             {
                 return View(model);
             }
+
         }
-
         [HttpGet]
-        public IActionResult Delete (int? Id)
+        public IActionResult Delete(int? Id)
         {
-            if(Id==null)
+            if (Id==null)
             {
                 return NotFound();
             }
 
-            Category category = _context.Categories.Find(Id);
-
-            if(category==null)
+            Service service = _context.Services.Find(Id);
+            if(service==null)
             {
                 return NotFound();
             }
-            _context.Categories.Remove(category);
+
+            _context.Services.Remove(service);
             _context.SaveChanges();
-
-
             return RedirectToAction("Index");
         }
-
-
     }
 }
