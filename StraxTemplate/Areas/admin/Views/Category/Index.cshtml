@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Category>
 @{
     ViewData["Title"] = "Index";
 }
@@ -27,8 +27,8 @@
                             <th scope="row">@i</th>
                             <td>@item.Title</td>
                             <td>
-                                <a asp-area="admin" asp-controller="Ask" asp-action="update" asp-route-id="@item.Id" class="btn btn-success">Update</a>
-                                <a asp-area="admin" asp-controller="Ask" asp-action="delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure ?')" class="btn btn-danger">Delete</a>
+                                <a asp-area="admin" asp-controller="Category" asp-action="update" asp-route-id="@item.Id" class="btn btn-success">Update</a>
+                                <a asp-area="admin" asp-controller="Category" asp-action="delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure ?')" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     }
