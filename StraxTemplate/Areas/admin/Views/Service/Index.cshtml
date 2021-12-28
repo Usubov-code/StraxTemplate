@@ -18,7 +18,7 @@
                         <th scope="col">Service Title</th>
                         <th scope="col">Category</th>
                         <th scope="col">User</th>
-                        <th scope="col">Design Type</th>
+                        <th scope="col">Image</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,7 @@
                         <td>@item.Title</td>
                         <td>@item.Category.Name</td>
                         <td>@item.User.Name</td>
-                        <td>@item.DesingType.Img</td>
+                        <td> <img src="~/Uploads/@item.DesingType.Img"  alt="image"/></td>
                         <td>
                             <a asp-area="admin" asp-controller="Service" asp-action="update" asp-route-id="@item.Id" class="btn btn-success">Update</a>
                             <a asp-area="admin" asp-controller="Service" asp-action="delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure ?')" class="btn btn-danger">Delete</a>
